@@ -34,7 +34,7 @@ class StudentDetailView(APIView):
             serializer.save()
             data = serializer.data
             data['success'] = f"Student {student.last_name} updated successfully"
-            return Response(serializer.data)
+            return Response(data)
 
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
@@ -87,7 +87,7 @@ class StudentDetail(
 
 
 
-#####! Generic (Concrete) Views ####
+#####! Generic (Concrete) Views (genelde bu son ikisi kullaniliyor) ####
 
 from rest_framework.generics import GenericAPIView, mixins, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
@@ -115,6 +115,6 @@ class StudentCRUD(ModelViewSet):
     @action(detail=False, methods=['GET'], url_path='student_count')
     def count(self, request):
         count = {
-            'studen_count': self.queryset.count()
+            'student_count': self.queryset.count()
         }
         return Response(count)

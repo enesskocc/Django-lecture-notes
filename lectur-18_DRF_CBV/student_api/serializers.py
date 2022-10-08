@@ -36,7 +36,7 @@ class StudentSerializer(serializers.ModelSerializer):
     path = serializers.StringRelatedField()
 
     id = serializers.IntegerField(required=False) # Veri işlemlerinde gönderimi mecburi olmasını istemiyorum.
-    path_id = serializers.IntegerField() # Modelden otomatik gelmiyor. Kayıt işlemleri için gerekli
+    path_id = serializers.IntegerField(write_only=True) # Modelden otomatik gelmiyor. Kayıt işlemleri için gerekli
 
     class Meta: 
         model = Student

@@ -10,7 +10,7 @@ from .models import Student, Path
 #     number = serializers.IntegerField(required=False)
 
 #     def create(self, validated_data):
-#         return Student.objects.create(**validated_data)
+#         return Student.objects.create(**validated_data) ## dictorny tipindeki verileri argüman olarak gönderiyorsak ** kullanacagiz.
 
 #     def update(self, instance, validated_data):
 #         instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -29,11 +29,12 @@ class StudentSerializer(serializers.ModelSerializer):
         return f'{obj.first_name} {obj.last_name}'
 
     path = serializers.StringRelatedField() ## id yerine isim getiriyor. Modelse gidiyor ordaki str'den aliyor!
-    id = serializers.IntegerField(write_only=True) ## ekranda görmek istemedigimiz seyleri bu sekilde engelleyebiliriz!
+    id = serializers.IntegerField(required=False) # Veri işlemlerinde gönderimi mecburi olmasını istemiyorum.
+    path_id = serializers.IntegerField(write_only=True) ## kayit islemleri icin gerekli! Modelden Otomatik gelmiyor!
 
     class Meta:
         model = Student
-        fields = ["id", "full_name", "first_name", "last_name", "number", "path"]
+        fields = ["id", "full_name", "first_name", "last_name", "number", "path", "path_id"]
         # fields = '__all__'
         # exclude = ['number']
 

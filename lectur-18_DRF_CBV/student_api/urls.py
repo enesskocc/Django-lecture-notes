@@ -21,6 +21,9 @@ urlpatterns = [
     # path('student_detail/<int:pk>', StudentDetailView.as_view())
     # path('student_detail/<int:pk>', StudentDetail.as_view())
     # path('student_detail/<int:pk>', StudentRUD.as_view())
+    # path('', include(router.urls)),
 ]
 
+
+## pat'in ensonuncu gibid kullanilabilir bunun yerine.
 urlpatterns += router.urls

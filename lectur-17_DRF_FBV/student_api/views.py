@@ -1,3 +1,14 @@
+'''
+    HTTP Request Types:
+        * GET         : İstek URL'de gönderilir. Açıktan gönderilen istek.
+        * POST        : İstek data olarak gönderilir. Gizliden gönderilen istek. 
+        * PUT       : POST gibidir. PrimaryKey (ID) verisi de ister. Güncelleme için kullanılır.
+        * PATCH     : POST/PUT gibidir. Farkı: Belirli bir parçayı güncellemek için kullanılır.
+        * DELETE    : POST gibidir. PrimaryKey (ID) verisi de ister. Sadece silme için kullanılır.
+'''
+
+
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
@@ -8,11 +19,11 @@ def home(request):
     return Response({'message': 'welcome to HomePage'})
 
 
-
+##? 1) Primary key istemeyenler!
 ##! verileri listele :
 
 from .serializers import StudentSerializer
-from .models import Student
+from .models import Student ## veri tabani ile iletisime gecen kisim modelller kismidir.
 
 @api_view()
 def student_list(request):
@@ -32,7 +43,11 @@ def student_create(request):
         return Response({'message': 'Successfully'})
     return Response({'message': 'Not Valid'})
 
-##! Tek ögrencinin listelenmesi(primaryKey(id) ister)
+##? ---------------------------------------------------------------------------------------------
+
+##? 2) Primary key isteyenler!
+
+##! Tek ögrencinin listelenmesi
 
 @api_view(['GET'])
 def student_detail(request, pk):
@@ -45,7 +60,7 @@ def student_detail(request, pk):
 @api_view((['PUT']))
 def student_update(request, pk):
     student = Student.objects.get(id=pk)
-    serilazier = StudentSerializer(instance=student, data=request.data)
+    serilazier = StudentSerializer(instance=student, data=request.data) ## ilki eski veri, ikincisi yeni veri.
 
     if serilazier.is_valid():
         serilazier.save()
@@ -60,7 +75,7 @@ def student_delete(request, pk):
     student.delete()
     return Response({'message': 'DELETED Successfully'})
 
-
+##? ---------------------------------------------------------------------------------------------
 
 ##! Birlestirme islemleri:
 

@@ -34,7 +34,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(required=False) ## beni id ugrastirma, kendin ayarla! Benim tarafimdan gönderimi mecbur degil!
     path = serializers.StringRelatedField()
-    path_id = serializers.IntegerField() ## kayit islemleri icin gerekli! Modelden Otomatik gelmiyor!
+    path_id = serializers.IntegerField(write_only=True) ## kayit islemleri icin gerekli! Modelden Otomatik gelmiyor!
 
     class Meta: 
         model = Student
@@ -43,7 +43,7 @@ class StudentSerializer(serializers.ModelSerializer):
         # exclude = ['number']
 
 class PathSerializer(serializers.ModelSerializer):
-    # students = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+    # students = serializers.PrimaryKeyRelatedField(read_only=True, many=True) ## sadece ID'leri getirir.
     students = StudentSerializer(many=True, required=False)
 
     class Meta: 
