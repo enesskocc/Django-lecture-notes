@@ -27,7 +27,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
         return attrs
 
-    def create(self, validated_data):
+    def create(self, validated_data): ## Kullaniciya bir password atamasi yapabilmek iicn dec create methodutunu override gibi yapiyoruz.
         user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
